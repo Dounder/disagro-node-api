@@ -1,0 +1,59 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String @unique
+  password String @db.VarChar(256)
+
+  userRoles UserRole[]
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  createdById Int    @map("created_by_id")
+  createdBy   User   @relation("UserCreator", fields: [createdById], references: [id])
+  creatorOf   User[] @relation("UserCreator")
+
+  deletedById Int?   @map("deleted_by_id")
+  deletedBy   User?  @relation("UserDeleter", fields: [deletedById], references: [id])
+  deleterOf   User[] @relation("UserDeleter")
+
+  @@map("user")
+}
+
+model Role {
+  id          String  @id @default(cuid()) // Unique identifier for the role
+  name        String  @unique @db.VarChar(50) // Role name (Admin, Manager, etc.)
+  description String? @db.VarChar(255) // Role description
+
+  userRoles UserRole[]
+
+  @@map("role")
+}
+
+model UserRole {
+  id         String   @id @default(cuid())
+  assignedAt DateTime @default(now()) @map("assigned_at")
+
+  User   User @relation(fields: [userId], references: [id])
+  userId Int  @map("user_id")
+
+  Role   Role   @relation(fields: [roleId], references: [id])
+  roleId String @map("role_id")
+
+  @@map("user_role")
+}
