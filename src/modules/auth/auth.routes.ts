@@ -1,8 +1,8 @@
 import { Router } from 'express';
-import { AuthService } from './auth.service';
-import { AuthController } from './auth.controller';
 import { validateSchema } from '../../middlewares';
-import { LoginSchema } from './schemas';
+import { AuthController } from './auth.controller';
+import { AuthService } from './auth.service';
+import { LoginSchema, VerifyTokenSchema } from './schemas';
 
 export class AuthRoutes {
   static get routes() {
@@ -11,6 +11,7 @@ export class AuthRoutes {
     const controller = new AuthController(service);
 
     router.post('/login', validateSchema(LoginSchema), controller.login);
+    router.post('/verify', validateSchema(VerifyTokenSchema), controller.verify);
 
     return router;
   }

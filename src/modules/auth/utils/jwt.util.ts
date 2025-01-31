@@ -11,4 +11,14 @@ export class JwtUtil {
       });
     });
   }
+
+  static async verifyToken(token: string): Promise<any | null> {
+    return new Promise((resolve) => {
+      jwt.verify(token, envs.JWT_SECRET, (err, decoded) => {
+        if (err) resolve(null);
+
+        resolve(decoded || null);
+      });
+    });
+  }
 }

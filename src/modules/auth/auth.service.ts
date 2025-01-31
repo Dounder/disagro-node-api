@@ -33,6 +33,24 @@ export class AuthService {
     return { user: rest, token: await this.generateToken({ id: user.id }) };
   };
 
+  verify = async (token: string): Promise<AuthResponse> => {
+    const { id }: TokenPayload = await JwtUtil.verifyToken(token);
+
+    if (!id) throw new Error('Invalid token');
+
+    const user = await this.prisma.user.findUnique({
+      where: { id },
+      select: UserSelect
+    });
+
+    if (!user) {
+      console.log('User not found');
+      throw new Error('Something went wrong with the token verification');
+    }
+
+    return { user, token: await this.generateToken({ id }) };
+  };
+
   private generateToken = async (payload: TokenPayload): Promise<string> => {
     const token = await JwtUtil.generateToken(payload);
 
