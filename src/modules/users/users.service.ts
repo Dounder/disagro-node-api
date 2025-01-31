@@ -8,7 +8,7 @@ import { CreateUserDto, UpdateUserDto } from './schemas';
 export class UsersService {
   private readonly prisma = new PrismaClient();
 
-  createUser = async (createUserDto: CreateUserDto /* user: User */): Promise<User & { password: string }> => {
+  createUser = async (createUserDto: CreateUserDto): Promise<User & { password: string }> => {
     const { roles, ...rest } = createUserDto;
     const userRoles = roles?.length ? roles.map((roleId) => ({ roleId })) : [{ roleId: RoleId.User }];
     const password = this.generateRandomPassword();

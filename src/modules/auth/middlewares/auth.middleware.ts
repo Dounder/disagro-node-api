@@ -1,8 +1,16 @@
 import { PrismaClient } from '@prisma/client';
 import { NextFunction, Request, Response } from 'express';
 
-import { UserSelect } from '../../users';
+import { UserSelect, UserSummary } from '../../users';
 import { JwtUtil } from '../utils';
+
+declare global {
+  namespace Express {
+    interface Request {
+      user: UserSummary;
+    }
+  }
+}
 
 export class AuthMiddleware {
   private static readonly prisma = new PrismaClient();
@@ -26,7 +34,7 @@ export class AuthMiddleware {
 
       if (!user) throw new Error('User not found');
 
-      req.body.user = user;
+      req.user = user;
 
       next();
     } catch (error) {

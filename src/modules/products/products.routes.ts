@@ -12,8 +12,8 @@ export class ProductsRoutes {
     const controller = new ProductsController(service);
 
     router.post('/', [AuthMiddleware.validateJwt, validateSchema(CreateProductSchema)], controller.create);
-    router.get('/', [AuthMiddleware.validateJwt], controller.findAll);
-    router.get('/:id', [AuthMiddleware.validateJwt], controller.findOne);
+    router.get('/', controller.findAll);
+    router.get('/:id', controller.findOne);
     router.put('/:id', [AuthMiddleware.validateJwt, validateSchema(UpdateProductSchema)], controller.update);
     router.delete('/:id', [AuthMiddleware.validateJwt], controller.remove);
     router.patch('/:id/restore', [AuthMiddleware.validateJwt], controller.restore);

@@ -13,8 +13,8 @@ export class ServicesRoutes {
     const controller = new ServicesController(service);
 
     router.post('/', [AuthMiddleware.validateJwt, validateSchema(CreateServiceSchema)], controller.create);
-    router.get('/', [AuthMiddleware.validateJwt], controller.findAll);
-    router.get('/:id', [AuthMiddleware.validateJwt], controller.findOne);
+    router.get('/', controller.findAll);
+    router.get('/:id', controller.findOne);
     router.put('/:id', [AuthMiddleware.validateJwt, validateSchema(UpdateServiceSchema)], controller.update);
     router.delete('/:id', [AuthMiddleware.validateJwt], controller.remove);
     router.patch('/:id/restore', [AuthMiddleware.validateJwt], controller.restore);
