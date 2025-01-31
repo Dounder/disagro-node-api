@@ -7,3 +7,10 @@ export const CreateProductSchema = z.object({
 });
 
 export type CreateProductDto = z.infer<typeof CreateProductSchema>;
+
+export const CreateAttendanceProductSchema = z.object({
+  id: z.number().positive(),
+  price: z.number().positive()
+});
+
+export type CreateAttendanceProductDto = z.infer<typeof CreateAttendanceProductSchema>;

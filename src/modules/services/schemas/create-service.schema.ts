@@ -7,3 +7,10 @@ export const CreateServiceSchema = z.object({
 });
 
 export type CreateServiceDto = z.infer<typeof CreateServiceSchema>;
+
+export const CreateAttendanceServiceSchema = z.object({
+  id: z.number().positive(),
+  price: z.number().positive()
+});
+
+export type CreateAttendanceServiceDto = z.infer<typeof CreateAttendanceServiceSchema>;

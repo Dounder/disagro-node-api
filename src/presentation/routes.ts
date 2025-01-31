@@ -1,7 +1,8 @@
 import { Router } from 'express';
 import { UsersRoutes } from '../modules/users';
 import { ServicesRoutes } from '../modules/services';
-import { ProductsRoute } from '../modules/products';
+import { ProductsRoutes } from '../modules/products';
+import { AttendancesRoutes } from '../modules/attendances';
 
 export class AppRoutes {
   static get routes() {
@@ -9,7 +10,8 @@ export class AppRoutes {
 
     router.use('/users', UsersRoutes.routes);
     router.use('/services', ServicesRoutes.routes);
-    router.use('/products', ProductsRoute.routes);
+    router.use('/products', ProductsRoutes.routes);
+    router.use('/attendances', AttendancesRoutes.routes);
 
     return router;
   }
