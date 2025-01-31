@@ -1,8 +1,9 @@
 import { Router } from 'express';
 import { validateSchema } from '../../middlewares';
-import { CreateProductSchema, UpdateProductSchema } from './schemas';
-import { ProductsService } from './products.service';
+import { AuthMiddleware } from '../auth/middlewares';
 import { ProductsController } from './products.controller';
+import { ProductsService } from './products.service';
+import { CreateProductSchema, UpdateProductSchema } from './schemas';
 
 export class ProductsRoutes {
   static get routes() {
@@ -10,12 +11,12 @@ export class ProductsRoutes {
     const service = new ProductsService();
     const controller = new ProductsController(service);
 
-    router.post('/', validateSchema(CreateProductSchema), controller.create);
+    router.post('/', [AuthMiddleware.validateJwt, validateSchema(CreateProductSchema)], controller.create);
     router.get('/', controller.findAll);
     router.get('/:id', controller.findOne);
-    router.put('/:id', validateSchema(UpdateProductSchema), controller.update);
-    router.delete('/:id', controller.remove);
-    router.patch('/:id/restore', controller.restore);
+    router.put('/:id', [AuthMiddleware.validateJwt, validateSchema(UpdateProductSchema)], controller.update);
+    router.delete('/:id', [AuthMiddleware.validateJwt], controller.remove);
+    router.patch('/:id/restore', [AuthMiddleware.validateJwt], controller.restore);
 
     return router;
   }
