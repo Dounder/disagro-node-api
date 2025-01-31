@@ -4,7 +4,7 @@ import { CreateProductSchema, UpdateProductSchema } from './schemas';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
 
-export class ProductsRoute {
+export class ProductsRoutes {
   static get routes() {
     const router = Router();
     const service = new ProductsService();

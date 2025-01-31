@@ -23,3 +23,10 @@ export interface PrismaUser {
   email: string;
   userRoles: { role: Role }[]; // Ensure this matches the structure returned by Prisma
 }
+
+export interface UserSummary {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+}

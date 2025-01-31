@@ -3,5 +3,5 @@ export * from './helpers';
 export * from './interfaces';
 
 export * from './products.controller';
-export * from './products.route';
+export * from './products.routes';
 export * from './products.service';

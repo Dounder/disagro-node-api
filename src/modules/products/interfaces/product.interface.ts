@@ -8,3 +8,8 @@ export interface Product {
   createdAt: Date;
   deletedAt: Date | null;
 }
+
+export interface ProductSummary {
+  id: number;
+  name: string;
+}

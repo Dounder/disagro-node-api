@@ -26,6 +26,8 @@ model User {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  Attendance Attendance[]
+
   @@map("user")
 }
 
@@ -62,6 +64,8 @@ model Service {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  AttendanceService AttendanceService[]
+
   @@map("service")
 }
 
@@ -75,5 +79,64 @@ model Product {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
+  AttendanceProduct AttendanceProduct[]
+
   @@map("product")
+}
+
+model Attendance {
+  id             Int       @id @default(autoincrement())
+  attendanceDate DateTime  @map("attendance_date")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+  deletedAt      DateTime? @map("deleted_at")
+
+  // Services
+  services_original_total  Decimal @map("services_original_total") @db.Decimal(20, 4)
+  services_discount_amount Decimal @map("services_discount_amount") @db.Decimal(20, 4)
+  services_discount_rate   Decimal @map("services_discount_rate") @db.Decimal(5, 2)
+  services_final_total     Decimal @map("services_final_total") @db.Decimal(20, 4)
+
+  // Products
+  products_original_total  Decimal @map("products_original_total") @db.Decimal(20, 4)
+  products_discount_amount Decimal @map("products_discount_amount") @db.Decimal(20, 4)
+  products_discount_rate   Decimal @map("products_discount_rate") @db.Decimal(5, 2)
+  products_final_total     Decimal @map("products_final_total") @db.Decimal(20, 4)
+
+  // Final total after all discounts
+  final_total Decimal @map("final_total") @db.Decimal(20, 4)
+
+  userId Int  @map("user_id")
+  user   User @relation(fields: [userId], references: [id])
+
+  attendanceServices AttendanceService[]
+  attendanceProducts AttendanceProduct[]
+
+  @@map("attendance")
+}
+
+model AttendanceService {
+  id    Int     @id @default(autoincrement())
+  price Decimal @db.Decimal(20, 4)
+
+  attendanceId Int        @map("attendance_id")
+  Attendance   Attendance @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+
+  serviceId Int     @map("service_id")
+  service   Service @relation(fields: [serviceId], references: [id])
+
+  @@map("attendance_service")
+}
+
+model AttendanceProduct {
+  id    Int     @id @default(autoincrement())
+  price Decimal @db.Decimal(20, 4)
+
+  attendanceId Int        @map("attendance_id")
+  Attendance   Attendance @relation(fields: [attendanceId], references: [id], onDelete: Cascade)
+
+  productId Int     @map("product_id")
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@map("attendance_product")
 }
