@@ -64,3 +64,16 @@ model Service {
 
   @@map("service")
 }
+
+model Product {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique @db.VarChar(50)
+  description String? @db.VarChar(255)
+  price       Decimal @db.Decimal(20, 4)
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @updatedAt @map("updated_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  @@map("product")
+}
