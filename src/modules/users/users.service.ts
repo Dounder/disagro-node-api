@@ -17,7 +17,6 @@ export class UsersService {
       data: {
         ...rest,
         password: bcrypt.hashSync(password, 10),
-        createdById: 1,
         userRoles: {
           createMany: { data: userRoles }
         }

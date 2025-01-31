@@ -6,6 +6,5 @@ export const UserSelect = Prisma.validator<Prisma.UserSelect>()({
   lastName: true,
   email: true,
   createdAt: true,
-  createdBy: { select: { id: true, firstName: true, lastName: true, email: true } },
   userRoles: { select: { role: { select: { id: true, name: true } } } }
 });
