@@ -26,14 +26,6 @@ model User {
   updatedAt DateTime  @updatedAt @map("updated_at")
   deletedAt DateTime? @map("deleted_at")
 
-  createdById Int?   @map("created_by_id")
-  createdBy   User?  @relation("UserCreator", fields: [createdById], references: [id], onDelete: SetNull)
-  creatorOf   User[] @relation("UserCreator")
-
-  deletedById Int?   @map("deleted_by_id")
-  deletedBy   User?  @relation("UserDeleter", fields: [deletedById], references: [id], onDelete: SetNull)
-  deleterOf   User[] @relation("UserDeleter")
-
   @@map("user")
 }
 
