@@ -9,9 +9,7 @@ export class ServicesRoutes {
   static get routes() {
     const router = Router();
     const service = new ServicesService();
-    console.log('🚀 ~ ServicesRoutes ~ getroutes ~ service:', service);
     const controller = new ServicesController(service);
-    console.log('🚀 ~ ServicesRoutes ~ getroutes ~ controller:', controller);
 
     router.post('/', validateSchema(CreateServiceSchema), controller.create);
     router.get('/', controller.findAll);
