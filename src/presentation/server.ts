@@ -36,9 +36,9 @@ export class Server {
     this.app.use('/api', this.routes);
 
     // Error-handling middleware
-    this.app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
       console.error(err.stack);
-      res.status(500).send('Something broke!');
+      res.status(500).json({ error: 'Internal server error' });
     });
 
     //? Start the server

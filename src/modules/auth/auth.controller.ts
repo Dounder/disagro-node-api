@@ -17,7 +17,7 @@ export class AuthController {
 
   verify = async (req: Request, res: Response) => {
     try {
-      const response = await this.authService.verify(req.body.token);
+      const response = await this.authService.verify(req.body.user);
 
       res.status(200).json(response);
     } catch (error: any) {

@@ -1,5 +1,6 @@
 import jwt, { SignOptions } from 'jsonwebtoken';
 import { envs } from '../../../config/envs';
+import { TokenPayload } from '../interfaces';
 
 export class JwtUtil {
   static async generateToken(payload: any, duration: SignOptions['expiresIn'] = '2h'): Promise<string | null> {
@@ -12,12 +13,12 @@ export class JwtUtil {
     });
   }
 
-  static async verifyToken(token: string): Promise<any | null> {
+  static async verifyToken(token: string): Promise<TokenPayload | null> {
     return new Promise((resolve) => {
       jwt.verify(token, envs.JWT_SECRET, (err, decoded) => {
         if (err) resolve(null);
 
-        resolve(decoded || null);
+        resolve((decoded as TokenPayload) || null);
       });
     });
   }
