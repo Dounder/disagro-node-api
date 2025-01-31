@@ -6,8 +6,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   login = async (req: Request, res: Response) => {
-    const authResponse = await this.authService.login();
+    try {
+      const response = await this.authService.login(req.body);
 
-    res.status(200).json({ authResponse });
+      res.status(200).json(response);
+    } catch (error: any) {
+      res.status(400).json({ error: error.message });
+    }
   };
 }
