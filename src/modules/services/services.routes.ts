@@ -4,6 +4,7 @@ import { validateSchema } from '../../middlewares';
 import { CreateServiceSchema, UpdateServiceSchema } from './schemas';
 import { ServicesController } from './services.controller';
 import { ServicesService } from './services.service';
+import { AuthMiddleware } from '../auth/middlewares';
 
 export class ServicesRoutes {
   static get routes() {
@@ -11,12 +12,12 @@ export class ServicesRoutes {
     const service = new ServicesService();
     const controller = new ServicesController(service);
 
-    router.post('/', validateSchema(CreateServiceSchema), controller.create);
-    router.get('/', controller.findAll);
-    router.get('/:id', controller.findOne);
-    router.put('/:id', validateSchema(UpdateServiceSchema), controller.update);
-    router.delete('/:id', controller.remove);
-    router.patch('/:id/restore', controller.restore);
+    router.post('/', [AuthMiddleware.validateJwt, validateSchema(CreateServiceSchema)], controller.create);
+    router.get('/', [AuthMiddleware.validateJwt], controller.findAll);
+    router.get('/:id', [AuthMiddleware.validateJwt], controller.findOne);
+    router.put('/:id', [AuthMiddleware.validateJwt, validateSchema(UpdateServiceSchema)], controller.update);
+    router.delete('/:id', [AuthMiddleware.validateJwt], controller.remove);
+    router.patch('/:id/restore', [AuthMiddleware.validateJwt], controller.restore);
 
     return router;
   }

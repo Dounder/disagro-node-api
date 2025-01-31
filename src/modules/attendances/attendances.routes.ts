@@ -5,6 +5,7 @@ import { UsersService } from '../users';
 import { createAttendanceSchema } from './schemas';
 import { AttendancesService } from './attendances.service';
 import { AttendancesController } from './attendances.controller';
+import { AuthMiddleware } from '../auth/middlewares';
 
 export class AttendancesRoutes {
   static get routes() {
@@ -14,8 +15,8 @@ export class AttendancesRoutes {
     const controller = new AttendancesController(service);
 
     router.post('/', validateSchema(createAttendanceSchema), controller.create);
-    router.get('/', controller.findAll);
-    router.get('/:id', controller.findOne);
+    router.get('/', [AuthMiddleware.validateJwt], controller.findAll);
+    router.get('/:id', [AuthMiddleware.validateJwt], controller.findOne);
 
     return router;
   }
