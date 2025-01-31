@@ -91,13 +91,20 @@ model Attendance {
   updatedAt      DateTime  @updatedAt @map("updated_at")
   deletedAt      DateTime? @map("deleted_at")
 
-  services_total    Decimal @map("services_total") @db.Decimal(20, 4)
-  services_discount Decimal @map("services_discount") @db.Decimal(10, 4)
+  // Services
+  services_original_total  Decimal @map("services_original_total") @db.Decimal(20, 4)
+  services_discount_amount Decimal @map("services_discount_amount") @db.Decimal(20, 4)
+  services_discount_rate   Decimal @map("services_discount_rate") @db.Decimal(5, 2)
+  services_final_total     Decimal @map("services_final_total") @db.Decimal(20, 4)
 
-  products_total    Decimal @map("products_total") @db.Decimal(20, 4)
-  products_discount Decimal @map("products_discount") @db.Decimal(10, 4)
+  // Products
+  products_original_total  Decimal @map("products_original_total") @db.Decimal(20, 4)
+  products_discount_amount Decimal @map("products_discount_amount") @db.Decimal(20, 4)
+  products_discount_rate   Decimal @map("products_discount_rate") @db.Decimal(5, 2)
+  products_final_total     Decimal @map("products_final_total") @db.Decimal(20, 4)
 
-  total Decimal @db.Decimal(20, 4)
+  // Final total after all discounts
+  final_total Decimal @map("final_total") @db.Decimal(20, 4)
 
   userId Int  @map("user_id")
   user   User @relation(fields: [userId], references: [id])
