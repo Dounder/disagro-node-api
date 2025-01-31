@@ -14,10 +14,11 @@ datasource db {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  username String @unique @db.VarChar(100)
-  name     String @db.VarChar(600)
-  password String @db.VarChar(256)
+  id        Int    @id @default(autoincrement())
+  firstName String @map("first_name") @db.VarChar(600)
+  lastName  String @map("last_name") @db.VarChar(600)
+  email     String @unique @db.VarChar(100)
+  password  String @db.VarChar(256)
 
   userRoles UserRole[]
 

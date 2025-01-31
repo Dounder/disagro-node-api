@@ -1,8 +1,9 @@
 -- CreateTable
 CREATE TABLE "user" (
     "id" SERIAL NOT NULL,
-    "username" VARCHAR(100) NOT NULL,
-    "name" VARCHAR(600) NOT NULL,
+    "first_name" VARCHAR(600) NOT NULL,
+    "last_name" VARCHAR(600) NOT NULL,
+    "email" VARCHAR(100) NOT NULL,
     "password" VARCHAR(256) NOT NULL,
     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updated_at" TIMESTAMP(3) NOT NULL,
@@ -33,7 +34,7 @@ CREATE TABLE "user_role" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "user_username_key" ON "user"("username");
+CREATE UNIQUE INDEX "user_email_key" ON "user"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "role_name_key" ON "role"("name");

@@ -5,8 +5,9 @@ export enum RoleId {
 
 export interface User {
   id: number;
-  username: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   createdBy: UserAudit | null;
   roles: Role[];
 }
@@ -18,14 +19,16 @@ export interface Role {
 
 export interface UserAudit {
   id: number;
-  username: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 }
 
 export interface PrismaUser {
   id: number;
-  name: string;
-  username: string;
+  firstName: string;
+  lastName: string;
+  email: string;
   createdBy: UserAudit | null;
   userRoles: { role: Role }[]; // Ensure this matches the structure returned by Prisma
 }

@@ -40,6 +40,16 @@ export class UsersController {
     res.json(user);
   };
 
+  updatePassword = async (req: Request, res: Response) => {
+    const { password } = req.body;
+
+    if (!password) res.status(400).json({ error: 'Password is required' });
+
+    const user = await this.usersService.updatePassword(Number(req.params.id), password);
+
+    res.json(user);
+  };
+
   removeUser = async (req: Request, res: Response) => {
     const user = await this.usersService.removeUser(Number(req.params.id));
 

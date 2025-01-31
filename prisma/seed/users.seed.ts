@@ -9,8 +9,9 @@ export const usersSeed = async (prisma: PrismaClient) => {
     },
     create: {
       id: 1,
-      username: 'admin',
-      name: 'Admin',
+      firstName: 'John',
+      lastName: 'Doe',
+      email: 'jdoe@google.com',
       password: bcrypt.hashSync('Abcd@123', 10),
       userRoles: { create: { roleId: 1 } }
     }
