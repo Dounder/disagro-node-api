@@ -8,3 +8,8 @@ export interface Service {
   createdAt: Date;
   deletedAt: Date | null;
 }
+
+export interface ServiceSummary {
+  id: number;
+  name: string;
+}

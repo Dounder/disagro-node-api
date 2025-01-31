@@ -37,3 +37,14 @@ export const AttendanceSelect = Prisma.validator<Prisma.AttendanceSelect>()({
     }
   }
 });
+
+export const AttendanceSelectList = Prisma.validator<Prisma.AttendanceSelect>()({
+  id: true,
+  attendanceDate: true,
+  services_discount_rate: true,
+  products_discount_rate: true,
+  final_total: true,
+  createdAt: true,
+  deletedAt: true,
+  user: { select: { id: true, firstName: true, lastName: true, email: true } }
+});

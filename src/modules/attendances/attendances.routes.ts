@@ -14,6 +14,8 @@ export class AttendancesRoutes {
     const controller = new AttendancesController(service);
 
     router.post('/', validateSchema(createAttendanceSchema), controller.create);
+    router.get('/', controller.findAll);
+    router.get('/:id', controller.findOne);
 
     return router;
   }
