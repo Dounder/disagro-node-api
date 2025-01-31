@@ -8,7 +8,6 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  createdBy: UserAudit | null;
   roles: Role[];
 }
 
@@ -17,18 +16,10 @@ export interface Role {
   name: string;
 }
 
-export interface UserAudit {
-  id: number;
-  firstName: string;
-  lastName: string;
-  email: string;
-}
-
 export interface PrismaUser {
   id: number;
   firstName: string;
   lastName: string;
   email: string;
-  createdBy: UserAudit | null;
   userRoles: { role: Role }[]; // Ensure this matches the structure returned by Prisma
 }
