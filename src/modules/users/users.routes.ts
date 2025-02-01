@@ -1,10 +1,10 @@
 import { Router } from 'express';
 
 import { validateSchema } from '../../middlewares';
+import { AuthMiddleware } from '../auth/middlewares';
 import { CreateUserSchema, UpdateUserPasswordSchema, UpdateUserSchema } from './schemas';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
-import { AuthMiddleware } from '../auth/middlewares';
 
 export class UsersRoutes {
   static get routes() {
