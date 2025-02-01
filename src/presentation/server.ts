@@ -34,6 +34,9 @@ export class Server {
 
     //? API routes
     this.app.use('/api', this.routes);
+    this.app.get('/api/health', (req: Request, res: Response) => {
+      res.json({ status: 'ok' });
+    });
 
     // Error-handling middleware
     this.app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {

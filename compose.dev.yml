@@ -1,0 +1,26 @@
+services:
+  api:
+    container_name: disagro_api
+    build:
+      context: .
+      dockerfile: dockerfile
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+    command: pnpm dev
+    env_file:
+      - .env
+
+  db:
+    container_name: disagro_db
+    image: postgres:17
+    restart: always
+    volumes:
+      - ./pg:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    env_file:
+      - .env

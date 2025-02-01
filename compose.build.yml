@@ -1,0 +1,12 @@
+services:
+  version:
+    build:
+      context: .
+      dockerfile: dockerfile.prod
+    image: disagro_api:1
+
+  latest:
+    build:
+      context: .
+      dockerfile: dockerfile.prod
+    image: disagro_api:latest

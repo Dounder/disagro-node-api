@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "nodemon src/app.ts",
     "build": "rimraf ./dist && tsc",
-    "start": "pnpm build && node dist/app.js",
+    "start": "node dist/src/app.js",
     "seed": "pnpm prisma db seed"
   },
   "keywords": [],
