@@ -11,3 +11,23 @@ Este es el backend de la prueba técnica de la empresa [**_Disagro_**](https://w
 5. Ejecuta `pnpm prisma generate` para generar el cliente de Prisma
 6. Ejecuta `pnpm prisma migrate dev` para aplicar las migraciones
 7. Ejecuta `pnpm dev` para iniciar el servidor de desarrollo
+
+# Docker
+
+Para ejecutar el proyecto en modo desarrollo con hot reload, se puede utilizar el siguiente comando:
+
+```bash
+docker compose -f compose.dev.yml up -d
+```
+
+Para ejecutar el proyecto en modo producción, se puede utilizar el siguiente comando:
+
+```bash
+docker compose -f compose.prod.yml up -d
+```
+
+Para la creación de la imagen de Docker, se puede utilizar el siguiente comando:
+
+```bash
+docker compose -f compose.build.yml build
+```
