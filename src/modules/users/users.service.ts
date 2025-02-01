@@ -4,6 +4,7 @@ import * as bcrypt from 'bcrypt';
 import { UserSelect } from './helpers';
 import { PrismaUser, RoleId, User } from './interfaces';
 import { CreateUserDto, UpdateUserDto } from './schemas';
+import { EmailService } from '../email';
 
 export class UsersService {
   private readonly prisma = new PrismaClient();
