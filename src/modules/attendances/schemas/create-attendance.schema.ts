@@ -6,8 +6,8 @@ import { CreateUserSchema } from '../../users';
 export const createAttendanceSchema = z.object({
   user: CreateUserSchema,
   attendanceDate: z.string().datetime(),
-  attendanceServices: z.array(CreateAttendanceServiceSchema),
-  attendanceProducts: z.array(CreateAttendanceProductSchema)
+  services: z.array(CreateAttendanceServiceSchema),
+  products: z.array(CreateAttendanceProductSchema)
 });
 
 export type CreateAttendanceDto = z.infer<typeof createAttendanceSchema>;

@@ -17,7 +17,7 @@ export class AttendancesService {
   ) {}
 
   create = async (createAttendanceDto: CreateAttendanceDto): Promise<Attendance> => {
-    const { user, attendanceDate, attendanceProducts, attendanceServices } = createAttendanceDto;
+    const { user, attendanceDate, products: attendanceProducts, services: attendanceServices } = createAttendanceDto;
     // Calculate all the discounts and the total
     const attendanceTotal = DiscountCalculation.calculateTotal(attendanceProducts, attendanceServices);
 
