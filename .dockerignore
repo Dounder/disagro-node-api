@@ -33,5 +33,7 @@ Thumbs.db
 
 # Docker related
 Dockerfile
+dockerfile*
 docker-compose*.yml
+compose*.yml
 .docker
