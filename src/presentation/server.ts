@@ -1,4 +1,5 @@
-import express, { Router, Request, Response, NextFunction } from 'express';
+import express, { Request, Response, Router } from 'express';
+import cors from 'cors';
 
 interface Options {
   port: number;
@@ -20,6 +21,7 @@ export class Server {
 
   async start() {
     //? Middlewares
+    this.app.use(cors());
     this.app.use(express.json()); // application/json
     this.app.use(express.urlencoded({ extended: true })); // x-www-form-urlencoded
 
