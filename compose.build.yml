@@ -3,10 +3,10 @@ services:
     build:
       context: .
       dockerfile: dockerfile.prod
-    image: disagro_api:1
+    image: drglasdou/disagro_node:1
 
   latest:
     build:
       context: .
       dockerfile: dockerfile.prod
-    image: disagro_api:latest
+    image: drglasdou/disagro_node:latest
