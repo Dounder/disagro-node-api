@@ -69,6 +69,13 @@ export class AttendancesService {
     return attendance;
   };
 
+  findByUser = async (userId: number): Promise<AttendanceList[]> => {
+    return await this.prisma.attendance.findMany({
+      where: { userId },
+      select: AttendanceSelectList
+    });
+  };
+
   private sendEmailWithCredentials = async (
     name: string,
     email: string,

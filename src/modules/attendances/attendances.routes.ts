@@ -20,6 +20,7 @@ export class AttendancesRoutes {
     router.post('/', validateSchema(createAttendanceSchema), controller.create);
     router.get('/', [AuthMiddleware.validateJwt], controller.findAll);
     router.get('/:id', [AuthMiddleware.validateJwt], controller.findOne);
+    router.get('/user/:id', [AuthMiddleware.validateJwt], controller.findByUser);
 
     return router;
   }

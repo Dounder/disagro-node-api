@@ -30,4 +30,20 @@ export class AttendancesController {
       res.status(404).json({ message: error.message });
     }
   };
+
+  findByUser = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const parsedId = Number(id);
+
+    if (!id) res.status(400).json({ error: `User ID is required` });
+    if (isNaN(parsedId)) res.status(400).json({ error: `User ID '${id}' must be a number` });
+
+    try {
+      const attendances = await this.attendancesService.findByUser(parsedId);
+
+      res.json(attendances);
+    } catch (error: any) {
+      res.status(404).json({ message: error.message });
+    }
+  };
 }
