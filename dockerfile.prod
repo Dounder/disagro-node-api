@@ -1,7 +1,11 @@
 # Stage 1: Base dependencies layer
 FROM node:22-alpine AS base
-
+RUN echo "🚀 Starting Stage 1: Base dependencies layer"
 WORKDIR /app
+
+# Install build tools for native dependencies
+RUN apk add --no-cache python3 make g++ && \
+  echo "📦 Installing pnpm globally..."
 
 # Copy only the files needed for installing dependencies
 COPY package.json pnpm-lock.yaml ./
@@ -10,35 +14,45 @@ COPY package.json pnpm-lock.yaml ./
 RUN npm install -g pnpm
 
 # Install all dependencies (including devDependencies)
+RUN echo "📦 Installing dependencies..."
 RUN pnpm install --frozen-lockfile
+
+# Clean up build tools to reduce image size
+RUN apk del python3 make g++
 
 # Stage 2: Build the application
 FROM node:22-alpine AS build
-
+RUN echo "🚀 Starting Stage 2: Build stage"
 WORKDIR /app
 
 # Copy dependencies from the base stage
+RUN echo "📋 Copying dependencies from base stage..."
 COPY --from=base /app/node_modules ./node_modules
 COPY . .
 
 # Install pnpm globally
+RUN echo "📦 Installing pnpm in build stage..."
 RUN npm install -g pnpm
 
 # Generate Prisma client
+RUN echo "🔧 Generating Prisma client..."
 RUN pnpm prisma generate
 
 # Build the NestJS application
+RUN echo "🏗️ Building NestJS application..."
 RUN pnpm build
 
 # Prune devDependencies after the build
+RUN echo "🧹 Pruning dev dependencies..."
 RUN pnpm prune --prod
 
 # Stage 3: Final production image
 FROM node:22-alpine AS prod
-
+RUN echo "🚀 Starting Stage 3: Production stage"
 WORKDIR /app
 
 # Copy only the necessary files for production
+RUN echo "📋 Copying production files..."
 COPY --from=build /app/node_modules ./node_modules
 COPY --from=build /app/package*.json ./
 COPY --from=build /app/dist ./dist
@@ -48,10 +62,12 @@ COPY --from=build /app/prisma ./prisma
 ENV NODE_ENV=production
 
 # Switch to a non-root user for security
+RUN echo "👤 Switching to non-root user..."
 USER node
 
 # Expose the application port
 EXPOSE 3000
 
+RUN echo "✅ Build complete! Starting application..."
 # Run the application
 CMD ["sh", "-c", "npx prisma migrate deploy && node dist/src/app.js"]

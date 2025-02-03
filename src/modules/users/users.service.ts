@@ -1,10 +1,9 @@
 import { PrismaClient } from '@prisma/client';
-import * as bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 
 import { UserSelect } from './helpers';
 import { PrismaUser, RoleId, User } from './interfaces';
 import { CreateUserDto, UpdateUserDto } from './schemas';
-import { EmailService } from '../email';
 
 export class UsersService {
   private readonly prisma = new PrismaClient();
