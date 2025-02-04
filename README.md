@@ -31,3 +31,14 @@ Para la creación de la imagen de Docker, se puede utilizar el siguiente comando
 ```bash
 docker compose -f compose.build.yml build
 ```
+
+# Tecnologías
+
+- [Node.js](https://nodejs.org/) - Utilizado como entorno de ejecución principal para el servidor
+- [Express.js](https://expressjs.com/) - Framework para la creación de la API REST y manejo de rutas
+- [Prisma](https://www.prisma.io/) - Implementado para la gestión y modelado de la base de datos
+- [PostgreSQL](https://www.postgresql.org/) - Base de datos para almacenar información de usuarios y asistencias
+- [Docker](https://www.docker.com/) - Usado para la contenerización y despliegue del proyecto
+- [Bcrypt](https://www.npmjs.com/package/bcrypt) - Implementado para la seguridad en el manejo de contraseñas
+- [JWT](https://jwt.io/) - Utilizado para la autenticación y autorización de usuarios
+- [Zod](https://zod.dev/) - Implementado para la validación de datos de entrada en la API
