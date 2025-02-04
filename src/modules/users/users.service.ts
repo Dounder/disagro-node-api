@@ -16,6 +16,7 @@ export class UsersService {
     const user = await this.prisma.user.create({
       data: {
         ...rest,
+        email: rest.email.toLowerCase(),
         password: bcrypt.hashSync(password, 10),
         userRoles: {
           createMany: { data: userRoles }
